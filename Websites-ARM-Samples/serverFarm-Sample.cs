@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace Websites_ARM_Samples
 {
-    public class ARM_serverFarm_Sample
+    public class ARM_WebHostingPlan_Sample
     {
         public WebSiteManagementClient client = null;
         private  ServerFarmCreateOrUpdateParameters serverFarmParameters{get;set;}
 
-        public bool createServerFarm(string resourceGroupName)
+        public bool createWebHostingPlan(string resourceGroupName)
         {
             serverFarmParameters = new ServerFarmCreateOrUpdateParameters();
             serverFarmParameters.ServerFarm = new ServerFarm();
@@ -62,12 +62,12 @@ namespace Websites_ARM_Samples
 
             Console.WriteLine("Request ID \t" + response.RequestId + "\n" + "HTTP Status Code : \t" + response.StatusCode);
 
-            listServerFarm(resourceGroupName);
+            listWebHostingPlan(resourceGroupName);
 
             return true;
         }
 
-        public bool listServerFarm(string resourceGroupName)
+        public bool listWebHostingPlan(string resourceGroupName)
         {
 
             Console.WriteLine("...:::Web Hosting Plans:::...");
@@ -82,22 +82,35 @@ namespace Websites_ARM_Samples
             return true;
         }
 
-        public bool deleteServerFarm(string resourceGroupName)
+        public bool deleteWebHostingPlan(string resourceGroupName)
         {
             Console.WriteLine("...:::Delete Web Hosting Plan:::...");
+            Console.Write("Web Hosting Plan Name: ");
+            var name = Console.ReadLine();
 
-            var ServerFarmName = Console.ReadLine();
+            try
+            {
+                var response = client.ServerFarms.Delete(resourceGroupName, name);
+                if(response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    Console.WriteLine("Request ID \t" + response.RequestId + "\n" + "HTTP Status Code : \t" + response.StatusCode);
+                }
+            }
+            catch 
+            {
+                Console.WriteLine("Web Hosting Plan:  \"" + name + "\"  not found");
+            }
+            
 
-            var response = client.ServerFarms.Delete(resourceGroupName, ServerFarmName);
-            Console.WriteLine("Request ID \t" + response.RequestId + "\n" + "HTTP Status Code : \t" + response.StatusCode);
+            
 
-            listServerFarm(resourceGroupName);
+            listWebHostingPlan(resourceGroupName);
 
             return true;
 
         }
     
-        public ServerFarm getServerFarm(string resourceGroupName, string ServerFarmName)
+        public ServerFarm getWebHostingPlan(string resourceGroupName, string ServerFarmName)
         {
             var response = client.ServerFarms.Get(resourceGroupName, ServerFarmName);
             
@@ -113,23 +126,63 @@ namespace Websites_ARM_Samples
             
         }
 
-        public void getServerFarm(string resourceGroupName)
+        public void getWebHostingPlan(string resourceGroupName)
         {
-            Console.WriteLine("Server Farm Name: ");
-            var serverFarmName = Console.ReadLine();
+            Console.WriteLine("Web Hosting Plan: ");
+            var whpName = Console.ReadLine();
 
-            var serverFarm = getServerFarm(resourceGroupName, serverFarmName);
+            var whp = getWebHostingPlan(resourceGroupName, whpName);
 
-            if (serverFarm != null)
+            if (whp != null)
             {
-                Console.WriteLine(JsonConvert.SerializeObject(serverFarm, Formatting.Indented));
+                Console.WriteLine(JsonConvert.SerializeObject(whp, Formatting.Indented));
             }
             else 
             {
-                Console.WriteLine("Error: ServerFarm Not Found");
+                Console.WriteLine("Error: WebHostingPlan \"" + whpName +"\" Not Found");
             }
         }
-    
-    
+
+
+        public bool webHostingPlanOperations(string resourceGroupName)
+        {
+            var webHostingPlanOperation = 0;
+
+            //Web Hosting Plan Operations
+            Console.Clear();
+            Console.WriteLine("...::Web Hosting Plan Operations::...");
+
+            Console.WriteLine("1) Create a new Web Hosting Plan");
+            Console.WriteLine("2) Delete an Existing Web Hosting Plan");
+            Console.WriteLine("3) List all Web Hosting Plans in a Resource Group");
+            Console.WriteLine("4) Get a specific Web Hosting Plan by Name in a Resource Group");
+            Console.WriteLine("0) back to previous menu");
+
+            int.TryParse(Console.ReadLine(), out webHostingPlanOperation);
+
+            switch (webHostingPlanOperation)
+            {
+                case 1:
+                    createWebHostingPlan(resourceGroupName);
+                    Console.ReadLine();
+                    return true;
+                case 2:
+                    deleteWebHostingPlan(resourceGroupName);
+                    Console.ReadLine();
+                    return true;
+                case 3:
+                    listWebHostingPlan(resourceGroupName);
+                    Console.ReadLine();
+                    return true;
+                case 4:
+                    getWebHostingPlan(resourceGroupName);
+                    Console.ReadLine();
+                    return true;
+                default:
+                    return false;
+                    
+            }
+        }
+
     }
 }

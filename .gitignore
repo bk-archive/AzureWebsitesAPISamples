@@ -18,3 +18,4 @@
 # If using the old MSBuild-Integrated Package Restore, uncomment this: 
 #!**/packages/repositories.config 
 
+Websites-ARM-SampleExplorer/App.config

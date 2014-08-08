@@ -45,8 +45,8 @@ namespace Websites_ARM_SampleExplorer
             var resourceGroup = Console.ReadLine();
 
             //Initialize the Server Farm Samples
-            var ServerFarmSample = new ARM_serverFarm_Sample();
-            ServerFarmSample.client = ARMClient.client;
+            var webHostingPlanSample = new ARM_WebHostingPlan_Sample();
+            webHostingPlanSample.client = ARMClient.client;
             //Initialize the Server Farm Samples
             var websiteSample = new ARM_websites_Sample();
             websiteSample.client = ARMClient.client;
@@ -55,11 +55,8 @@ namespace Websites_ARM_SampleExplorer
             var operation = 0;
             var mainMenu = true;
             
-            var serverFarmMenu = true;
-            var serverFarmOperation = 0;
-            
+            var webHostingPlanmMenu = true;
             var websiteMenu = true;
-            var websiteOperation = 0;
 
             while (mainMenu)
             {
@@ -74,89 +71,18 @@ namespace Websites_ARM_SampleExplorer
                     switch (operation)
                     {
                         case 1:
-                            
 
-                            while (serverFarmMenu)
+
+                            while (webHostingPlanmMenu)
                             {
-                                //Server Farm Operations
-                                Console.Clear();
-                                Console.WriteLine("...::Server Farm Operations::...");
-
-                                Console.WriteLine("1) Create a new ServerFarm");
-                                Console.WriteLine("2) Delete an Existing Server Farm");
-                                Console.WriteLine("3) List all Server Farms in a Resource Group");
-                                Console.WriteLine("4) Get a specific Server Farms in a Resource Group");
-                                Console.WriteLine("0) back to previous menu");
-
-                                int.TryParse(Console.ReadLine(), out serverFarmOperation);
-
-                                switch (serverFarmOperation)
-                                {
-                                    case 1:
-                                        ServerFarmSample.createServerFarm(resourceGroup);
-                                        Console.ReadLine();
-                                        break;
-                                    case 2:
-                                        ServerFarmSample.deleteServerFarm(resourceGroup);
-                                        Console.ReadLine();
-                                        break;
-                                    case 3:
-                                        ServerFarmSample.listServerFarm(resourceGroup);
-                                        Console.ReadLine();
-                                        break;
-                                    case 4:
-                                        ServerFarmSample.getServerFarm(resourceGroup);
-                                        Console.ReadLine();
-                                        break;
-                                    default:
-                                        serverFarmMenu = false;
-                                        Console.Clear();
-                                        Console.Write("Operation Not recognized");
-                                        break;
-                                }
+                                webHostingPlanmMenu = webHostingPlanSample.webHostingPlanOperations(resourceGroup);
                             }
 
                             break;
                         case 2:
                             while (websiteMenu)
                             {
-                                websiteOperation = -1;
-                                //Website Operations
-                                Console.Clear();
-                                Console.WriteLine("...::Website Operations::...");
-
-                                Console.WriteLine("1) Create a new Website");
-                                Console.WriteLine("2) Delete an Existing Website");
-                                Console.WriteLine("3) List all Websites in a Resource Group");
-                                Console.WriteLine("4) Get a specific Website in a Resource Group");
-                                Console.WriteLine("0) back to previous menu");
-
-                                int.TryParse(Console.ReadLine(), out websiteOperation);
-
-                                switch (websiteOperation)
-                                {
-                                    case 1:
-                                        websiteSample.createWebsite(resourceGroup);
-                                        Console.ReadLine();
-                                        break;
-                                    case 2:
-                                        websiteSample.deleteSite(resourceGroup);
-                                        Console.ReadLine();
-                                        break;
-                                    case 3:
-                                        websiteSample.listSites(resourceGroup);
-                                        Console.ReadLine();
-                                        break;
-                                    case 4:
-                                        websiteSample.getSite(resourceGroup);
-                                        Console.ReadLine();
-                                        break;
-                                    default:
-                                        websiteMenu = false;
-                                        Console.Clear();
-                                        Console.Write("Operation Not recognized");
-                                        break;
-                                }
+                                websiteMenu = websiteSample.webSitesOperations(resourceGroup);
                             }
                             
                             break;
