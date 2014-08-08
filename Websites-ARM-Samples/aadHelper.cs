@@ -15,7 +15,6 @@ namespace Websites_ARM_Samples
         //ARM API Endpoint
         private static Uri APIENDPOINT = new Uri(@"https://management.azure.com/");
         public  WebSiteManagementClient client = null;
-        private AzureActiveDirectoryConfig aadConfig;
 
         public AzureActiveDirectoryHelper(AzureActiveDirectoryConfig configuration)
         {

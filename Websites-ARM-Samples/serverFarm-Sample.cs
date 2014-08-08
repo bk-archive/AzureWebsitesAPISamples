@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Websites_ARM_Samples
 {
-    public class serverFarm_ARM_Sample
+    public class ARM_serverFarm_Sample
     {
         public WebSiteManagementClient client = null;
         private  ServerFarmCreateOrUpdateParameters serverFarmParameters{get;set;}
@@ -96,5 +96,40 @@ namespace Websites_ARM_Samples
             return true;
 
         }
+    
+        public ServerFarm getServerFarm(string resourceGroupName, string ServerFarmName)
+        {
+            var response = client.ServerFarms.Get(resourceGroupName, ServerFarmName);
+            
+            if(response.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                return response.ServerFarm;
+            }
+            else
+            {
+                return null;
+            }
+
+            
+        }
+
+        public void getServerFarm(string resourceGroupName)
+        {
+            Console.WriteLine("Server Farm Name: ");
+            var serverFarmName = Console.ReadLine();
+
+            var serverFarm = getServerFarm(resourceGroupName, serverFarmName);
+
+            if (serverFarm != null)
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(serverFarm, Formatting.Indented));
+            }
+            else 
+            {
+                Console.WriteLine("Error: ServerFarm Not Found");
+            }
+        }
+    
+    
     }
 }
