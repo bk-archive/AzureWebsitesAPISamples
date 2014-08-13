@@ -2,6 +2,11 @@
 **.suo 
 *.suo
 
+Websites-ARM-SampleExplorer/App.config
+*/App.config
+App.config
+
+
 
  
 # Build results 
@@ -17,5 +22,3 @@
 !**/packages/build/ 
 # If using the old MSBuild-Integrated Package Restore, uncomment this: 
 #!**/packages/repositories.config 
-
-Websites-ARM-SampleExplorer/App.config
