@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Azure.Management.WebSites.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,67 +9,174 @@ namespace Websites_ARM_Samples
 {
     class Regions
     {
-        public static Dictionary<string, string> _regions = new Dictionary<string, string>
-        {
-            {"asiaEast", "East Asia"},
-            {"asiaSouthEast", "Southeast Asia"},
 
-            {"brazilSouth", "Brazil South"},
+
+        public static List<string> _regions = new List<string>
+        {
+            {"East Asia"},
+            {"Southeast Asia"},
+
+            {"Brazil South"},
         
-            {"europeNorth", "North Europe"},
-            {"europeWest", "West Europe"},
+            {"North Europe"},
+            {"West Europe"},
         
-            {"japanEast", "Japan East"},
-            {"japanWest", "Japan West"},
+            {"Japan East"},
+            {"Japan West"},
         
-            {"usCentral", "Central US"},
-            {"usEast", "East US"},
-            {"usEast2", "East US 2"}, 
-            {"usNorthCentral", "North Central US"},
-            {"usWest", "West US"},
-            {"usSouthCentral", "South Central US"}
+            {"Central US"},
+            {"East US"},
+            {"East US 2"}, 
+            {"North Central US"},
+            {"West US"},
+            {"South Central US"}
         };
 
-        public static string parseRegion(string region)
+        public static string getRegion()
         {
-            string returnValue;
+            var i = 0;
+            var positionX = Console.CursorLeft;
+            var positionY = Console.CursorTop;
 
-            if (Regions._regions.TryGetValue(region, out returnValue) )
+            while (true)
             {
-                return returnValue;
-            }
-            else
-            {
-                //Default Value
-                return "West US";
+                Console.CursorLeft = positionX;
+                Console.CursorTop = positionY;
+                Console.Write(_regions.ElementAt(i));
+                
+                var index = Console.ReadKey(true);
+
+                if (index.Key == ConsoleKey.UpArrow || index.Key == ConsoleKey.RightArrow)
+                {
+                    i++;
+                    i = i > _regions.Count()-1 ? i % _regions.Count() : i;
+                }
+                else if (index.Key == ConsoleKey.DownArrow || index.Key == ConsoleKey.LeftArrow)
+                {
+                    i--;
+                    i = i < 0 ? _regions.Count-1 : i;
+                }
+                else if (index.Key == ConsoleKey.Enter )
+                {
+                    Console.Write("\n");
+                    return _regions.ElementAt(i);
+                }
+                else
+                {
+                    //Other key, ignore it.
+                }
+                Console.CursorLeft = positionX;
+                Console.CursorTop = positionY;
+                Console.Write("                              ");
             }
         }
 
     }
-
-
     class SKU
     {
-        public static Dictionary<string, string> _skus = new Dictionary<string, string>
+        public static List<string> _skus = new List<string>
         {
-            {"Free", "free"},
-            {"Shared", "shared"},
-            {"Basic", "basic"},
-            {"Standard", "standard"},
+            {"Free"},
+            {"Shared"},
+            {"Basic"},
+            {"Standard"},
         };
 
 
-        public static string parseSKU(string sku)
+        public static string getSKU()
         {
-            string returnValue;
-            if (SKU._skus.TryGetValue(sku, out returnValue))
+            var i = 0;
+            var positionX = Console.CursorLeft;
+            var positionY = Console.CursorTop;
+
+            while (true)
             {
-                return returnValue;
+                Console.CursorLeft = positionX;
+                Console.CursorTop = positionY;
+                Console.Write(_skus.ElementAt(i));
+
+                var index = Console.ReadKey(true);
+
+                if (index.Key == ConsoleKey.UpArrow || index.Key == ConsoleKey.RightArrow)
+                {
+                    i++;
+                    i = i > _skus.Count() - 1 ? i % _skus.Count() : i;
+                }
+                else if (index.Key == ConsoleKey.DownArrow || index.Key == ConsoleKey.LeftArrow)
+                {
+                    i--;
+                    i = i < 0 ? _skus.Count - 1 : i;
+                }
+                else if (index.Key == ConsoleKey.Enter)
+                {
+                    Console.Write("\n");
+                    return _skus.ElementAt(i).ToLowerInvariant();
+                }
+                else
+                {
+                    //Other key, ignore it.
+                }
+                Console.CursorLeft = positionX;
+                Console.CursorTop = positionY;
+                Console.Write("                              ");
             }
-            else
+        }
+    }
+
+    class SIZE
+    {
+        private static List<string> _sizes = new List<string>
+        {
+            {"Small"},
+            {"Medium"},
+            {"Large"},
+        };
+
+
+        public static ServerFarmWorkerSize getSize()
+        {
+            var i = 0;
+            var positionX = Console.CursorLeft;
+            var positionY = Console.CursorTop;
+
+            while (true)
             {
-                //Default Value
-                return "free";
+                Console.CursorLeft = positionX;
+                Console.CursorTop = positionY;
+                Console.Write(_sizes.ElementAt(i));
+
+                var index = Console.ReadKey(true);
+
+                if (index.Key == ConsoleKey.UpArrow || index.Key == ConsoleKey.RightArrow)
+                {
+                    i++;
+                    i = i > _sizes.Count() - 1 ? i % _sizes.Count() : i;
+                }
+                else if (index.Key == ConsoleKey.DownArrow || index.Key == ConsoleKey.LeftArrow)
+                {
+                    i--;
+                    i = i < 0 ? _sizes.Count - 1 : i;
+                }
+                else if (index.Key == ConsoleKey.Enter)
+                {
+                    Console.Write("\n");
+                    switch (i)
+                    {
+                        case 1:
+                            return ServerFarmWorkerSize.Medium;
+                        case 2:
+                            return ServerFarmWorkerSize.Large;
+                        case 0:
+                            return ServerFarmWorkerSize.Small;
+                    }
+                }
+                else
+                {
+                    //Other key, ignore it.
+                }
+                Console.CursorLeft = positionX;
+                Console.CursorTop = positionY;
+                Console.Write("                              ");
             }
         }
     }

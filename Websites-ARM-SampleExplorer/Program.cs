@@ -17,9 +17,8 @@ namespace Websites_ARM_SampleExplorer
     {
         static void Main(string[] args)
         {
+
             var settingsReader = ConfigurationManager.AppSettings;
-
-
             var aadConfig = new AzureActiveDirectoryConfig();
             
             //Get Azure Active Directory Configuration form App Settings
@@ -62,7 +61,7 @@ namespace Websites_ARM_SampleExplorer
             {
                 Console.Clear();
                 Console.WriteLine("...::Select Samples::...");
-                Console.WriteLine("1) Server Farm Operations");
+                Console.WriteLine("1) Web Hosting Plan Operations");
                 Console.WriteLine("2) Website Operations");
                 Console.WriteLine("0) Quit");
 

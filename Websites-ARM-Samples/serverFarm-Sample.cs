@@ -20,39 +20,25 @@ namespace Websites_ARM_Samples
             serverFarmParameters = new ServerFarmCreateOrUpdateParameters();
             serverFarmParameters.ServerFarm = new ServerFarm();
             serverFarmParameters.ServerFarm.Properties = new ServerFarmProperties();
+            serverFarmParameters.ServerFarm.Properties.Status = ServerFarmStatus.Ready;
 
             Console.WriteLine("...:::Collect Server Farm Parameters:::...");
 
-            Console.WriteLine("Server Farm Name:");
+            Console.Write("Server Farm Name:");
             serverFarmParameters.ServerFarm.Name = Console.ReadLine();
 
-            Console.WriteLine("Location:");
-            serverFarmParameters.ServerFarm.Location = GeoRegionNames.WestUS;
+            Console.Write("Location:");
+            serverFarmParameters.ServerFarm.Location = Regions.getRegion();
 
-            Console.WriteLine("Worker Size [s|m|l]:");
-            var size =  Console.ReadLine();
-            var configuredSize = ServerFarmWorkerSize.Small;
-            if(size.ToLowerInvariant() == "s")
-            {
-                configuredSize = ServerFarmWorkerSize.Small;
-            }
-            else if (size.ToLowerInvariant() =="m")
-            {
-                configuredSize = ServerFarmWorkerSize.Medium;
-            }
-            else if (size.ToLowerInvariant()=="l")
-            {
-                configuredSize = ServerFarmWorkerSize.Large;
-            }
-            serverFarmParameters.ServerFarm.Properties.WorkerSize = configuredSize;
-            serverFarmParameters.ServerFarm.Properties.CurrentWorkerSize = configuredSize;
+            Console.Write("Worker Size: ");
+            var size = SIZE.getSize();
+            serverFarmParameters.ServerFarm.Properties.WorkerSize = size;
+            serverFarmParameters.ServerFarm.Properties.CurrentWorkerSize = size;
 
-            serverFarmParameters.ServerFarm.Properties.Status = ServerFarmStatus.Ready;
+            Console.Write("Server Farm SKU: ");
+            serverFarmParameters.ServerFarm.Properties.Sku = SKU.getSKU();
 
-            Console.WriteLine("Server Farm SKU [free|shared|basic|standard]:");
-            serverFarmParameters.ServerFarm.Properties.Sku = Console.ReadLine();
-
-            Console.WriteLine("Number of Workers");
+            Console.Write("Number of Workers:");
             var number = 1;
             int.TryParse(Console.ReadLine(), out number);
             serverFarmParameters.ServerFarm.Properties.NumberOfWorkers = number;
