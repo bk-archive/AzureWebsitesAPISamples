@@ -76,10 +76,10 @@ namespace Websites_ARM_Samples
     {
         public static List<string> _skus = new List<string>
         {
-            {"Free"},
-            {"Shared"},
-            {"Basic"},
-            {"Standard"},
+            {"free"},
+            {"shared"},
+            {"basic"},
+            {"standard"},
         };
 
 
@@ -119,6 +119,18 @@ namespace Websites_ARM_Samples
                 Console.CursorLeft = positionX;
                 Console.CursorTop = positionY;
                 Console.Write("                              ");
+            }
+        }
+
+        public static bool isDeidicated( string sku)
+        {
+            if (_skus.BinarySearch(sku) >= 2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }

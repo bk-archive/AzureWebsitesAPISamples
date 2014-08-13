@@ -30,20 +30,22 @@ namespace Websites_ARM_Samples
             Console.Write("Location:");
             serverFarmParameters.ServerFarm.Location = Regions.getRegion();
 
-            Console.Write("Worker Size: ");
-            var size = SIZE.getSize();
-            serverFarmParameters.ServerFarm.Properties.WorkerSize = size;
-            serverFarmParameters.ServerFarm.Properties.CurrentWorkerSize = size;
-
             Console.Write("Server Farm SKU: ");
             serverFarmParameters.ServerFarm.Properties.Sku = SKU.getSKU();
 
-            Console.Write("Number of Workers:");
-            var number = 1;
-            int.TryParse(Console.ReadLine(), out number);
-            serverFarmParameters.ServerFarm.Properties.NumberOfWorkers = number;
-            serverFarmParameters.ServerFarm.Properties.CurrentNumberOfWorkers = number;
+            if (SKU.isDeidicated(serverFarmParameters.ServerFarm.Properties.Sku)) 
+            { 
+                Console.Write("Worker Size: ");
+                var size = SIZE.getSize();
+                serverFarmParameters.ServerFarm.Properties.WorkerSize = size;
+                serverFarmParameters.ServerFarm.Properties.CurrentWorkerSize = size;
 
+                Console.Write("Number of Workers:");
+                var number = 1;
+                int.TryParse(Console.ReadLine(), out number);
+                serverFarmParameters.ServerFarm.Properties.NumberOfWorkers = number;
+                serverFarmParameters.ServerFarm.Properties.CurrentNumberOfWorkers = number;
+            }
             ServerFarmCreateOrUpdateResponse response = client.ServerFarms.CreateOrUpdate(resourceGroupName, serverFarmParameters);
 
             Console.WriteLine("Request ID \t" + response.RequestId + "\n" + "HTTP Status Code : \t" + response.StatusCode);
