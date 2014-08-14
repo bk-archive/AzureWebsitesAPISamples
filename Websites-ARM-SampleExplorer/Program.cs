@@ -50,12 +50,8 @@ namespace Websites_ARM_SampleExplorer
             var websiteSample = new ARM_websites_Sample();
             websiteSample.client = ARMClient.client;
 
-
             var operation = 0;
             var mainMenu = true;
-            
-            var webHostingPlanmMenu = true;
-            var websiteMenu = true;
 
             while (mainMenu)
             {
@@ -70,8 +66,7 @@ namespace Websites_ARM_SampleExplorer
                     switch (operation)
                     {
                         case 1:
-
-
+                            var webHostingPlanmMenu = true;
                             while (webHostingPlanmMenu)
                             {
                                 webHostingPlanmMenu = webHostingPlanSample.webHostingPlanOperations(resourceGroup);
@@ -79,11 +74,11 @@ namespace Websites_ARM_SampleExplorer
 
                             break;
                         case 2:
+                            var websiteMenu = true;
                             while (websiteMenu)
                             {
                                 websiteMenu = websiteSample.webSitesOperations(resourceGroup);
                             }
-                            
                             break;
                         case 0:
                             mainMenu = false;
@@ -97,7 +92,8 @@ namespace Websites_ARM_SampleExplorer
                             break;
                     }
                 }
-                else {
+                else 
+                {
                     Console.Clear();
                     Console.Write("Operation Not recognized:");
                 }
