@@ -96,7 +96,7 @@ The **Websites-ARM-SampleExplorer** contains an **App.config** file with place h
 
 Replace all the placeholder values with the right settings you collected in **Step 3**
 
-```Config
+```
 <appSettings>
     <!-- Subscription-->
     <add key="subscriptionID" value="Subscription ID"/>
