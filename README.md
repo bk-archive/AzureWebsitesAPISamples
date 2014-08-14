@@ -69,19 +69,19 @@ In the final step of the wizard you will need to:
 
 3.	Add the **Windows Azure Service Management API** application and delegate permissions to **Access Azure Service Management**<br />
 4.	**Click** the **SAVE** button to save your changes
-
+![Configure your newly created Active Directory Application to access the Azure Resource Manager APIs](./_documentation/images/capture_07.png)<br />
 
 
 ####Step 3: Collect the configuration information
 #####Azure Subscription ID
 The azure subscription id can be found by going to the **SETTINGS** section of the **Azure Management Portal** under the **SUBSCRIPTIONS** tab
->![Azure Subscription ID](./_documentation/images/capture_06.png)
+>![Azure Subscription ID](./_documentation/images/capture_11.png)
 
 #####Azure Active Directory Tenant ID
 **Azure Active Directory Tenant ID** can be found by **Azure Active Directory** section of the **Azure Management Portal** and selecting the correct directory. You should see your configured **Azure Active Directory Application** listed.
 
 **Click** on **View Endpoints**
->![Azure Subscription ID](./_documentation/images/capture_07.png)
+>![Azure Subscription ID](./_documentation/images/capture_10.png)
 
 The **Azure Active Directory Tenant Id** is an alphanumeric string that is part of the URI of your authentication endpoints:
 >![Azure Subscription ID](./_documentation/images/capture_09.png)
