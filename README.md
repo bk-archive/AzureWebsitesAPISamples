@@ -1,5 +1,5 @@
 #Introduction
-This document provides an overview of the Azure Websites Management Client Samples for .NET.
+This is a README document that provides an overview of the Azure Websites Management Client Samples for dot.NET.
 
 This samples are currently hosted here: https://github.com/btardif/AzureWebsitesAPISamples
 
